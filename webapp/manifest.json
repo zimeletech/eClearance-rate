@@ -1,0 +1,242 @@
+{
+	"_version": "1.7.0",
+	"sap.app": {
+		"id": "clearance_portal",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponent",
+			"version": "0.0.0"
+		},
+		"dataSources": {
+			"ZISU_RATES_CLEARANCE_SRV_01": {
+				"uri": "/sap/opu/odata/sap/ZISU_RATES_CLEARANCE_SRV_01/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_hcw",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": {
+			"viewName": "clearance_portal.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.0",
+			"libs": {
+				"sap.m": {},
+				"sap.suite.ui.microchart": {},
+				"sap.ui.commons": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"config": {
+			"sample": {
+				"stretch": true,
+				"files": [
+					"view/Wizard.view.xml",
+					"controller/Wizard.controller.js",
+					"manifest.json"
+				]
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "clearance_portal.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "show",
+				"bypassed": {
+					"target": [
+						"wizard"
+					]
+				}
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "home",
+					"target": "startpage"
+				},
+				{
+					"pattern": "userstartpage",
+					"name": "userstartpage",
+					"target": "userstartpage"
+				},
+				{
+					"pattern": "wizard",
+					"name": "wizard",
+					"target": "wizard"
+				},
+				{
+					"pattern": "logquery",
+					"name": "logquery",
+					"target": "logquery"
+				},
+				{
+					"pattern": "memo",
+					"name": "memo",
+					"target": "memo"
+				},
+				{
+					"pattern": "history",
+					"name": "history",
+					"target": "history"
+				},
+				{
+					"pattern": "draft",
+					"name": "draft",
+					"target": "draft"
+				},
+				{
+					"pattern": "renewals",
+					"name": "renewals",
+					"target": "renewals"
+				},
+				{
+					"pattern": "refunds",
+					"name": "refunds",
+					"target": "refunds"
+				},
+				{
+					"pattern": "logquery",
+					"name": "logquery",
+					"target": "logquery"
+				},
+				{
+					"pattern": "usermain",
+					"name": "usermain",
+					"target": "usermain"
+				},
+				{
+					"pattern": "bankmain",
+					"name": "bankmain",
+					"target": "bankmain"
+				},
+				{
+					"pattern": "login",
+					"name": "login",
+					"target": "login"
+				},
+				{
+					"pattern": "adminhomeportal",
+					"name": "adminhomeportal",
+					"target": "adminhomeportal"
+				},
+				{
+					"pattern": "homeportal",
+					"name": "homeportal",
+					"target": "homeportal"
+				}
+			],
+			"targets": {
+				"startpage": {
+					"viewName": "Login",
+					"viewLevel": 0
+				},
+				"wizard": {
+					"viewName": "Wizard",
+					"viewLevel": 1
+				},
+				"logquery": {
+					"viewName": "LogQuery",
+					"viewLevel": 1
+				},
+				"memo": {
+					"viewName": "MemoWizard",
+					"viewLevel": 1
+				},
+				"history": {
+					"viewName": "History",
+					"viewLevel": 1
+				},
+				"draft": {
+					"viewName": "Draft",
+					"viewLevel": 1
+				},
+				"renewals": {
+					"viewName": "FundRenewal",
+					"viewLevel": 1
+				},
+				"refunds": {
+					"viewName": "Refunds",
+					"viewLevel": 1
+				},
+				"usermain": {
+					"viewName": "UserMaintenance",
+					"viewLevel": 1
+				},
+				"bankmain": {
+					"viewName": "BankMaintainance",
+					"viewLevel": 1
+				},
+				"login": {
+					"viewName": "Login",
+					"viewLevel": 1
+				},
+				"userstartpage": {
+					"viewName": "Startpage",
+					"viewLevel": 1
+				},
+				"adminhomeportal": {
+					"viewName": "AdminHomePortal",
+					"viewLevel": 1
+				},
+				"homeportal": {
+					"viewName": "HomePortal",
+					"viewLevel": 1
+				}
+			}
+		},
+		"models": {
+			"MyData": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZISU_RATES_CLEARANCE_SRV_01",
+				"preload": true
+			}
+		}
+	}
+}

@@ -1,0 +1,84 @@
+/* HOME PAGE TILES TITLES */
+
+#__xmlview1--wizardContentPage-title,
+#__xmlview2--wizardContentPage-title,
+#__xmlview3--wizardContentPage-title,
+#__xmlview4--wizardContentPage-title,
+#__xmlview5--wizardContentPage-title,
+#__xmlview6--wizardContentPage-title,
+#__xmlview7--wizardContentPage-title,
+#__xmlview8--wizardContentPage-title,
+#__xmlview2--wizardReviewPage-title,
+#__xmlview3--wizardReviewPage-title,
+#__xmlview4--wizardReviewPage-title,
+#__xmlview5--wizardReviewPage-title,
+#__xmlview6--wizardReviewPage-title,
+#__xmlview11--wizardContentPage-title,
+#__page1-title,
+#__page2-title,
+#__page3-title,
+#__page4-title {
+    margin: auto;
+}
+
+/* SUPPORTING DOCUMENTS */
+
+.sapUiHLayoutChildWrapper {
+    white-space: normal;
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+}
+
+#__text0 {
+    font-size: 30px;
+}
+
+
+/* eCLEARANCE Home Portal*/
+
+#__xmlview1--HistoryForm--FC-NoHead--Grid-wrapperfor-__label0 {
+    Width: 8.75rem;
+}
+
+
+/* LOGIN PAGE */
+
+
+/* HADER BACKGROUNG COLOR */
+
+#__page0-intHeader-BarPH {
+    background-color: white;
+}
+
+
+/* IMAGE*/
+
+#__image0 {
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+
+
+/* TITLE TEXT "WELCOME TO THE eCLEARANCE PORTAL/eCLEARANCE Home Portal"*/
+
+#__text0, #__text2 {
+    font-size: 30px;
+}
+/*#__data5{
+	font-size: 30px;
+}*/
+
+/* BUTTONS */
+
+#__xmlview1--btn_login-inner,
+#__xmlview1--btn_password-inner,
+#__xmlview1--btn_regfirm-inner {
+    background: white;
+}
+
+#__xmlview1--btn_login,
+#__xmlview1--btn_password,
+#__xmlview1--btn_regfirm {
+    width: 100%;
+}

@@ -1,0 +1,85 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="clearance_portal.controller.UserMaintenance" displayBlock="true" height="100%" viewName="DATA CAPTURE">
+	<App>
+		<pages>
+			<Page title="User Maintenance" showNavButton="true" navButtonPress=".onNavButtonback">
+				<FlexBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
+					<VBox alignItems="Center" justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="250px" visible="true" densityAware="false"/>
+						<Label/>
+					</VBox>
+				</FlexBox>
+				<content>
+					<Table id="userTable" mode="MultiSelect" selectionChange="onSelectionChange" items="{path:'usersList>/users'}" width="98%">
+						<headerToolbar>
+							<OverflowToolbar>
+								<Button text="New Entry" press="onAddUser" icon="sap-icon://add-employee" /> 
+								<Button text="Activate" press="onActivate" icon="sap-icon://employee-approvals"/>
+								<Button text="Deactivate" press="onDeactivate" icon="sap-icon://employee-rejections"/>
+								<ToolbarSpacer/>
+								<Button tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+								<Button tooltip="Filter" icon="sap-icon://filter" press="handleFilterButtonPressed"/>
+								<SearchField liveChange="onSearch" width="17.5rem"/>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="First Name"/>
+							</Column>
+							<Column>
+								<Text text="Last Name"/>
+							</Column>
+							<Column>
+								<Text text="ID Type"/>
+							</Column>
+							<Column>
+								<Text text="ID Number"/>
+							</Column>
+							<Column>
+								<Text text="Country of Issue"/>
+							</Column>
+							<Column>
+								<Text text="Email Address"/>
+							</Column>
+							<Column>
+								<Text text="Role"/>
+							</Column>
+							<Column>
+								<Text text="Username"/>
+							</Column>
+							<Column>
+								<Text text="Status"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{usersList>UserNameFirst}"/>
+									<Text text="{usersList>UserNameLast}"/>
+									<Text text="{usersList>UserType}"/>
+									<Text text="{usersList>UserIdnumber}"/>
+									<Text text="{usersList>UserCountry}"/>
+									<Text text="{usersList>UserSmtpAddr}"/>
+									<Text text="{usersList>BpType}"/>
+									<Text text="{usersList>UserUsername}"/>
+									<Text text="{usersList>UserStatus}"/>
+								</cells>
+								<customData>
+									<core:CustomData key="userId" value="{usersList>UserIdnumber}" writeToDom="true"/>
+								</customData>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<Button id="cancel_btn" text="Logout" press="logout" type="Default" icon="sap-icon://log"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

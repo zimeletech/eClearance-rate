@@ -1,0 +1,31 @@
+<mvc:View controllerName="clearance_portal.controller.Wizard" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"
+	xmlns:layout="sap.ui.layout" >
+	<Page>
+		<FlexBox alignItems="Center" justifyContent="Center" class="sapUiMediumMarginBottom">
+			<VBox alignItems="Center" justifyContent="Center">
+				<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+					width="250px" visible="true" densityAware="false"/>
+				<Label/>
+				<Text text="WELCOME TO THE eCLEARANCE PORTAL" textAlign="Center"/>
+			</VBox>
+		</FlexBox>
+		<content>
+			<VBox justifyContent="Center" alignItems="Center" width="100%">
+				<!-- First Form: Username Input and Get OTP Button -->
+				<VBox id="firstForm" visible="true" alignItems="Center">
+					<Input id="usernameInput" placeholder="Enter your UserName" value="{/loginusername}" width="300px" required="true"/>
+					<Button text="Get OTP" press="onGenerateOTP" width="400px" type="Default" icon="sap-icon://log"/>
+					<Button text="Register" press=".onNavToWizard" width="400px" type="Emphasized"  icon="sap-icon://add-contact"/>
+				</VBox>
+				<!-- Second Form: OTP Input and Login/Cancel Buttons -->
+				<VBox id="secondForm" visible="false" alignItems="Center">
+					<Input id="otpInput" placeholder="Enter One-Time Pin" width="300px" required="true"/>
+					<Button text="Login" press="onLogin" width="400px" type="Default" icon="sap-icon://visits"/> 
+					<Button text="Cancel" press="onCancel" type="Reject" width="400px" icon="sap-icon://decline" />
+					<Button text="Register" press=".onNavToWizard" width="400px" type="Emphasized" icon="sap-icon://add-contact"/>
+				</VBox>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

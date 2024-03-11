@@ -1,0 +1,98 @@
+<mvc:View controllerName="clearance_portal.controller.Startpage" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"
+	xmlns:layout="sap.ui.layout">
+	
+	<App>
+		<pages>
+			<Page title="Bank Detail Maintenance"
+			 showNavButton="true"
+	            navButtonPress=".onNavButtonback">
+				<FlexBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+					<VBox alignItems="Center" justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="250px" visible="true" densityAware="false"/>
+					</VBox>
+				</FlexBox>
+				<layout:VerticalLayout class="sapUiResponsiveMargin sapUiContentPadding">
+					<MessageStrip
+						text="Please note that there will be a change in the Rates figure document layout effective from 1 October 2023. Please note that there will be a change in the Rates figure document layout effective from 1 October 2023. Please note that there will be a change in the Rates figure document layout effective from 1 October 2023"
+						showIcon="true" customIcon="sap-icon://marketing-campaign" showCloseButton="true"></MessageStrip>
+				</layout:VerticalLayout>
+				<content>
+					<form:SimpleForm title="Bank Detail Maintenance" id="Bank_Main" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false"
+						labelSpanL="2" labelSpanM="3" labelSpanS="12" columnsL="1" columnsM="1" emptySpanL="7" emptySpanM="5">
+						<form:content >
+							<Text text="Add new account (Provide bank statement/comfirmation letter of verification)" textAlign="End"/>
+							<Label text="Account Number"/>
+							<Input id="Acc_num" value="{}" required="true"/>
+							<Label text="Account Type"/>
+							<Select id="Application_typ" selectedKey="{}">
+								<items>
+									<core:Item text="Business" key="Business"/>
+								</items>
+							</Select>
+							<Label text="Name of Bank"/>
+							<Input id="Property_erf" value="{}" required="true"/>
+							<Label text="Proof of account details" />
+							<u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="Upload/" tooltip="Upload your file to the local server"
+								uploadComplete="handleUploadComplete" required="true" />
+							<Button text="Upload File" press="handleUploadPress"/>
+							<Label/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<Button id="Search_btn" text="Submit" press="onSubmit" type="Accept" width="10rem"/>
+							</FlexBox>
+						</form:content>
+					</form:SimpleForm>
+					<Table id="userTable" mode="MultiSelect" selectionChange="onSelectionChange" items="{path: '/users'}" class="sapUiSmallMarginBegin">
+						<columns>
+							<Column>
+								<Text text="Account Number"/>
+							</Column>
+							<Column>
+								<Text text="Account Type"/>
+							</Column>
+							<Column>
+								<Text text="Bank"/>
+							</Column>
+							<Column>
+								<Text text="Creation Date"/>
+							</Column>
+							<Column>
+								<Text text="Valid from"/>
+							</Column>
+							<Column>
+								<Text text="Valid to"/>
+							</Column>
+							<Column>
+								<Text text="Status"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{AccNumber}"/>
+									<Text text="{AccType}"/>
+									<Text text="{BankName}"/>
+									<Text text="{DateCreate}"/>
+									<Text text="{ValidFrom}"/>
+									<Text text="{ValidTo}"/>
+									<Text text="{Status}"/>
+								</cells>
+								<customData>
+									<core:CustomData key="userId" value="{idNumber}" writeToDom="true"/>
+								</customData>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<footer >
+					<Bar>
+						<contentRight>
+							<Button icon="sap-icon://cancel" id="cancel_app" text="Cancel Application" press="Search" type="Reject"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

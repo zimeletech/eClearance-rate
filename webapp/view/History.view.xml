@@ -1,0 +1,93 @@
+<mvc:View controllerName="clearance_portal.controller.Startpage" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"
+	xmlns:layout="sap.ui.layout">
+	<App>
+		<pages>
+			<Page title="Application History"
+			showNavButton="true"
+	            navButtonPress=".onNavButtonback2">
+				<FlexBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
+					<VBox alignItems="Center" justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="250px" visible="true" densityAware="false" />
+						<Label/>
+					</VBox>
+				</FlexBox>
+				<content>
+					<form:SimpleForm title="Submitted Application" id="HistoryForm" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false"
+						labelSpanL="2" labelSpanM="4" labelSpanS="12" columnsL="1" columnsM="1" emptySpanL="7" emptySpanM="5">
+						<form:content >
+							<Text text="You may use one or more search criteria to find an application." textAlign="End"/>
+							<Label text="Date from" labelFor="Date"/>
+							<DatePicker id="Valid_from" width="100%" valueState="{valueState}" valueStateText="{valueStateText}"/>
+							<Label text="Date to"/>
+							<DatePicker id="Valid_to" width="100%" valueState="{valueState}" valueStateText="{valueStateText}"/>
+							<Label text="Application Reference"/>
+							<Input id="App_ref" value="{}" required="true"/>
+							<Label text="Application Type"/>
+							<Select id="Application_typ" selectedKey="{}">
+								<items>
+									<core:Item text="Full Title" key="Full_Title"/>
+								</items>
+							</Select>
+							<Label text="Property ERF"/>
+							<Input id="Property_erf" value="{}" required="true"/>
+							<Label text="Seller ID"/>
+							<Input id="Seller_id" value="{}" required="true"/>
+							<Label/>
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<Button id="Search_btn" text="Search" press="Search" type="Accept" width="10rem"/>
+							</FlexBox>
+						</form:content>
+					</form:SimpleForm>
+					<Table id="userTable" mode="MultiSelect" selectionChange="onSelectionChange" items="{path: '/users'}" class="sapUiLargeMarginBottom">
+						<columns>
+							<Column>
+								<Text text="Reference"/>
+							</Column>
+							<Column>
+								<Text text="Seller Name(1)"/>
+							</Column>
+							<Column>
+								<Text text="Property ERF"/>
+							</Column>
+							<Column>
+								<Text text="Contract Account"/>
+							</Column>
+							<Column>
+								<Text text="Date Submitted"/>
+							</Column>
+							<Column>
+								<Text text="Status"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{Reference}"/>
+									<Text text="{Seller_Name}"/>
+									<Text text="{Property_erf}"/>
+									<Text text="{Contract_acc}"/>
+									<Text text="{Date_subm}"/>
+									<Text text="{Status}"/>
+								</cells>
+								<customData>
+									<core:CustomData key="userId" value="{idNumber}" writeToDom="true"/>
+								</customData>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<Button id="Payement" text="Make Payment" press="Search" type="Accept" />
+							<Button id="upload" text="Uplaod proof of payement(other channel of payment used)" press="Search" type="Accept"/>
+							<Button id="withdraw" text="Withdraw Application" press="Search" type="Accept"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

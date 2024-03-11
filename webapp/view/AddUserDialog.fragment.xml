@@ -1,0 +1,133 @@
+<core:FragmentDefinition xmlns:forms="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="Add User" contentWidth="824px" icon="sap-icon://add-employee">
+		<VBox class="sapUiMediumMargin">
+			<f:SimpleForm editable="true" title="User Details :" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+				emptySpanXL="0" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" minWidth="824px"
+				singleContainerFullSize="true">
+				<f:content>
+					<Label text="User Role"/>
+					<Select id="userType" selectedKey="{userList>/UserType}">
+						<items>
+							<core:Item key="" text="--Select Type--"/>
+							<core:Item key="ZADM" text="Admin"/>
+							<core:Item key="ZRAT" text="Conveyancer"/>
+							
+						</items>
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Select>
+					<Label text="Title"/>
+					<Select id="userTitle" selectedKey="{userList>/Usertitle}">
+						<items>
+							<core:Item text="--Select Title--" key=""/>
+							<core:Item text="Mr" key="0002"/>
+							<core:Item text="Miss" key="MISS"/>
+							<core:Item text="Mrs" key="0001"/>
+							<core:Item text="Prof" key="PROF"/>
+						</items>
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Select>
+					<Label text="Gender"/>
+					<Select id="usergender" selectedKey="{userList>/UserGender}">
+						<items>
+							<core:Item text="--Select Title--" key=""/>
+							<core:Item text="Female" key="1"/>
+							<core:Item text="Male" key="2"/>
+							<core:Item text="Other" key="9"/>
+						</items>
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Select>
+					<Label text="Username"/>
+					<Input id="userName" value="{userList>/Username}" placeholder=" Enter Username">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="Initials"/>
+					<Input id="initials" value="{userList>/UserInitials}" placeholder=" Enter initials">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="FirstName"/>
+					<Input id="userFirstName" value="{userList>/UserFirstname}" placeholder=" Enter First Name">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="LastName"/>
+					<Input id="userSurname" value="{userList>/Usersurname}" placeholder="Enter Last Name">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="ID Type"/>
+					<Select id="userIdType" selectedKey="{userList>/UseridType}">
+						<items>
+							<core:Item text="--Select ID Type--" key=""/>
+							<core:Item text="Identification Number" key="FS0001"/>
+							<core:Item text="Passport Number" key="FS0002"/>
+						</items>
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Select>
+					<Label text="ID Number"/>
+					<Input id="userIdNumber" value="{userList>/UseridNumber}" placeholder=" Enter ID Number">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="Cell Number"/>
+					<Input id="userCell" value="{userList>/UsercellNumber}" placeholder="Enter Cell Number">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="Email"/>
+					<Input id="userEmail" value="{userList>/Useremail}" placeholder="Enter Email">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="House No"/>
+					<Input id="userHouseNo" value="{userList>/UserhouseNo}" placeholder="Enter House No">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="Street"/>
+					<Input id="userStreet" value="{userList>/Userstreet}" placeholder="Enter Street">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="City"/>
+					<Input id="userCity" value="{userList>/Usercity}" placeholder="Enter City">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label text="Postal Code"/>
+					<Input id="userPostal" value="{userList>/UserpostalCode}" placeholder="EnterPostal Code">
+						<layoutData>
+							<l:GridData span="L5 M7 S7"/>
+						</layoutData>
+					</Input>
+					<Label></Label>
+					<Label></Label>
+					<HBox justifyContent="End">
+						<Button text="Add" press="onSubmit" type="Accept" class="sapUiTinyMarginEnd" icon="sap-icon://add-employee"/>
+						<Button text="Cancel" press="onCancel" type="Reject" icon="sap-icon://employee-rejections"/>
+					</HBox>
+				</f:content>
+			</f:SimpleForm>
+		</VBox>
+	</Dialog>
+</core:FragmentDefinition>

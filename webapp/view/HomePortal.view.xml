@@ -1,0 +1,89 @@
+<mvc:View xmlns:cards="sap.f.cards" controllerName="clearance_portal.controller.Startpage" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:layout="sap.ui.layout" xmlns:microchart="sap.suite.ui.microchart">
+	<FlexBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
+		<VBox alignItems="Center" justifyContent="Center">
+			<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+				width="250px" visible="true" densityAware="false"/>
+			<Text text="eCLEARANCE Home Portal" textAlign="Center" class="sapUiSmallMarginTop"/>
+		</VBox>
+	</FlexBox>
+	<layout:VerticalLayout class="sapUiResponsiveMargin sapUiContentPadding">
+		<Title titleStyle="H2" text="" class="sapUiTinyMarginBegin"/>
+		<MessageStrip
+			text="Please note that there will be a change in the Rates figure document layout effective from 1 October 2023. Please note that there will be a change in the Rates figure document layout effective from 1 October 2023. Please note that there will be a change in the Rates figure document layout effective from 1 October 2023"
+			showIcon="true" customIcon="sap-icon://marketing-campaign" showCloseButton="true"></MessageStrip>
+		<MessageStrip
+			text="Please note that there will be a change in the Rates figure document layout effective from 1 October 2023. Please note that there will be a change in the Rates figure document layout effective from 1 October 2023"
+			showIcon="true" customIcon="sap-icon://marketing-campaign" showCloseButton="true">
+			<link>
+				<Link text="See Template.." target="_blank" href="https://www.zimeletechnologies.com/"/>
+			</link>
+		</MessageStrip>
+		<MessageStrip
+			text="The City of Zimeleton will no longer require a copy of the obselete document for rates clearance application as of 20 October 2023."
+			showIcon="true" customIcon="sap-icon://marketing-campaign" showCloseButton="true" class="sapUiTinyMarginBottom"></MessageStrip>
+		<MessageStrip
+			text="Please note that there will be a change in the Rates figure document layout effective from 1 October 2023. Please note that there will be a change in the Rates figure document layout effective from 1 October 2023."
+			showIcon="true" customIcon="sap-icon://marketing-campaign" showCloseButton="true">
+			<link>
+				<Link text="See Template.." target="_blank" href="http://www.sap.com"/>
+			</link>
+		</MessageStrip>
+		<layout:HorizontalLayout allowWrapping="true">
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Memo/Clearance Certificate Application" press=".onNavToMemo">
+				<tileContent>
+					<TileContent class="Numeric">
+						<content>
+							<NumericContent icon="sap-icon://approvals"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="History" press=".onNavToHistory">
+				<tileContent>
+					<TileContent>
+						<content>
+							<NumericContent icon="sap-icon://history"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Draft" press=".onNavToDraft">
+				<tileContent>
+					<TileContent>
+						<content>
+							<NumericContent icon="sap-icon://write-new-document"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Fidelity Fund Renewals" press=".onNavToRewewals">
+				<tileContent>
+					<TileContent>
+						<content>
+							<NumericContent icon="sap-icon://refresh"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Refunds View" press=".onNavToRefunds">
+				<tileContent>
+					<TileContent>
+						<content>
+							<NumericContent icon="sap-icon://mirrored-task-circle"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Log Query" press=".onNavToLogQuery">
+				<tileContent>
+					<TileContent>
+						<content>
+							<NumericContent icon="sap-icon://request"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+		</layout:HorizontalLayout>
+	</layout:VerticalLayout>
+</mvc:View>

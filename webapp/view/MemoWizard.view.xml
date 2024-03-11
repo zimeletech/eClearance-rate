@@ -1,0 +1,317 @@
+<mvc:View xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:table="sap.ui.table" xmlns:tool="sap.m.Toolbar" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout" height="100%"
+	controllerName="clearance_portal.controller.Wizard">
+	<NavContainer id="wizardNavContainer">
+		<pages>
+			<Page id="wizardContentPage" showHeader="true" title="Memo/Clearance Certificate Application">
+				<FlexBox justifyContent="Center" class="sapUiTinyMargin">
+					<VBox justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="200px" visible="true" densityAware="false"/>
+					</VBox>
+				</FlexBox>
+				<content>
+					<Wizard id="CreateRateClearaneceWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+						complete="wizardCompletedHandler">
+						<WizardStep id="ApplicationDetailsSteps" title="Application Detail" validated="true">
+							<form:SimpleForm id="application_detail_id" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+								columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Application type" required="true"/>
+								<Select id="Applicationtype" selectedKey="">
+									<items>
+										<core:Item text="Full Title" key="fulltitle"/>
+										<core:Item text="Full Title" key="fulltitle"/>
+										<core:Item text="Full Title" key="fulltitle"/>
+									</items>
+								</Select>
+								<Label text="Municipality Rates Account number" required="true"/>
+								<Input id="rateaccNo" value="" placeholder=" Enter Municipality Rates Account number"/>
+								<Label text="Water and Electricity are on the same Rate account" required="true"/>
+								<layout:HorizontalLayout >
+									<CheckBox text="Yes" selected="true" editable="true" enabled="true" visible="true"/>
+									<CheckBox text="No" selected="true" editable="true" enabled="true" visible="true"/>
+								</layout:HorizontalLayout>
+								<Label text="Water Account number"/>
+								<Input id="wateAccNo" value="" placeholder="Enter Water Account number"/>
+								<Label text="Electricity Account number"/>
+								<Input id="electrAccNo" value="" placeholder=" Enter Electricity Account number"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="PropertyDetailsSteps" validated="true" activate="PropertyDetailsSteps" title="Property Detail">
+							<form:SimpleForm id="PropertyDetails" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+								columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Property Type" required="true"/>
+								<Select id="proper_type" selectedKey="">
+									<items>
+										<core:Item text="Commercial" key="proper_type"/>
+										<core:Item text="Commercial" key="proper_type"/>
+										<core:Item text="Bachelor" key="proper_type"/>
+									</items>
+								</Select>
+								<Label text="ERF"/>
+								<Input id="ERF" value="" required="true" placeholder="Enter ERF"/>
+								<Label text="Street Number"/>
+								<Input id="Street_Number" value="" required="true" placeholder="Enter Street Number"/>
+								<Label text="Street Name" required="true"/>
+								<Input id="Street_Name" value="" placeholder=" Enter Street Name"/>
+								<Label text="Complexbuilding Floor"/>
+								<Input id="Complex_floor" value="" placeholder="Enter Complexbuilding Floor"/>
+								<Label text="City"/>
+								<Input id="City" value="" required="true" placeholder="Enter City"/>
+								<Label text="Surburb"/>
+								<Input id="Surburb" value="" required="true" placeholder="Enter Surburb"/>
+								<Label text="Postal Code"/>
+								<Input id="Postal_Code" value="" required="true" placeholder="Enter Postal Code"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="seller_detailsSteps" activate="pricingActivate" complete="pricingComplete" validated="true" title="Seller Detail">
+							<form:SimpleForm id="seller_details" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" labelSpanM="4" title="Personal Details" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
+								emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Seller Type" required="true"/>
+								<Select id="seller_type" selectedKey="">
+									<items>
+										<core:Item text="Person" key="seller_type"/>
+										<core:Item text="Person" key="seller_type"/>
+										<core:Item text="Person" key="seller_type"/>
+									</items>
+								</Select>
+								<Label text="Title"/>
+								<Select id="title" selectedKey="{/title}">
+									<items>
+										<core:Item text="Mr" key="Mr"/>
+										<core:Item text="Miss" key="Miss"/>
+										<core:Item text="Mrs" key="Mrs"/>
+										<core:Item text="Dr" key="Dr"/>
+										<core:Item text="Prof" key="Prof"/>
+									</items>
+								</Select>
+								<Label text="First Name"/>
+								<Input value="{/name}" placeholder="Enter First Name"/>
+								<Label text="Last Name"/>
+								<Input value="{/surname}" placeholder="Enter Last Name"/>
+								<Label text="Identification Type" labelFor="groupB" required="true"/>
+								<RadioButtonGroup id="groupB">
+									<RadioButton text="RSA ID" selected="true"/>
+									<RadioButton text="Passport"/>
+								</RadioButtonGroup>
+								<Label text="Identification Number"/>
+								<Input id="Identification_No" value="" required="true" placeholder="Enter Identification Number"/>
+							</form:SimpleForm>
+							<form:SimpleForm id="Contact_D" title="Contact Detail" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout"
+								labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
+								emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Email"/>
+								<Input id="Email" value="" placeholder="Enter Email"/>
+								<Label text="Repeat Email"/>
+								<Input id="Repeat_Email" value="" placeholder="Repeat Email"/>
+								<Label text="Cellphone Number"/>
+								<Input id="Cellphone" value="" placeholder="Enter Cellphone Number"/>
+								<Label text="Telephone Number"/>
+								<Input id="Telephone" value="" placeholder="Enter Telephone Number"/>
+								<Label/>
+								<Button text="Add Seller " id="btn_idone" type="Default" press="toIconTabFilter3" iconFirst="true" width="102.18055725097656px"
+									enabled="true" visible="true" iconDensityAware="false"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="PurchaserSteps" activate="pricingActivate" complete="pricingComplete" validated="true" title="Purchaser Detail">
+							<form:SimpleForm backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4"
+								labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+								singleContainerFullSize="false">
+								<Label text="Buyer Type" required="true"/>
+								<Select id="buyer_type" selectedKey="">
+									<items>
+										<core:Item text="Person" key="seller_type"/>
+										<core:Item text="Person" key="seller_type"/>
+										<core:Item text="Person" key="seller_type"/>
+									</items>
+								</Select>
+								<Label text="Is an existing City Customer" required="true"/>
+								<layout:HorizontalLayout >
+									<CheckBox text="Yes" selected="true" editable="true" enabled="true" visible="true"/>
+									<CheckBox text="No" selected="true" editable="true" enabled="true" visible="true"/>
+								</layout:HorizontalLayout>
+								<Label text="Municipality Account Number"/>
+								<Input id="Municipality_" value="" placeholder="Enter Municipality Account Number"/>
+								<Label text="Title"/>
+								<Select id="title_" selectedKey="{/title}">
+									<items>
+										<core:Item text="Mr" key="Mr"/>
+										<core:Item text="Miss" key="Miss"/>
+										<core:Item text="Mrs" key="Mrs"/>
+										<core:Item text="Dr" key="Dr"/>
+										<core:Item text="Prof" key="Prof"/>
+									</items>
+								</Select>
+								<Label text="First Name"/>
+								<Input value="{/name}" placeholder="Enter First Name"/>
+								<Label text="Last Name"/>
+								<Input value="{/surname}" placeholder="Enter Last Name"/>
+								<Label text="Identification Type" labelFor="groupB" required="true"/>
+								<RadioButtonGroup id="groupB2">
+									<RadioButton text="RSA ID" selected="true"/>
+									<RadioButton text="Passport"/>
+								</RadioButtonGroup>
+								<Label text="Identification Number"/>
+								<Input id="Identification_No2" value="" required="true" placeholder="Enter Identification Number"/>
+							</form:SimpleForm>
+							<form:SimpleForm id="Contact_No2" title="Contact Detail" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout"
+								labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
+								emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Email"/>
+								<Input id="Email_No2" value="" placeholder="Enter Email"/>
+								<Label text="Repeat Email"/>
+								<Input id="Repeat_EmailNo2" value="" placeholder="Repeat Email"/>
+								<Label text="Cellphone Number"/>
+								<Input id="CellphoneN02" value="" placeholder=" Enter Cellphone Number"/>
+								<Label text="Telephone Number"/>
+								<Input id="TelephoneNo2" value="" placeholder="Enter Telephone Number"/>
+								<Label text=""/>
+								<Button text="Add Purchaser " type="Default" press="toIconTabFilter3" iconFirst="true" width="200px" enabled="true" visible="true"
+									iconDensityAware="false"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="Support_Documents" activate="pricingActivate" complete="pricingComplete" validated="true" title="Supporting Documents">
+							<form:SimpleForm backgroundDesign="Transparent" title="Upload Supporting Documents : " editable="true" layout="ResponsiveGridLayout"
+								labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
+								emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<layout:VerticalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Property Deeds search :" class="sapUiSmallMarginTop sapUiLargeMarginEnd" required="true"/>
+										<u:FileUploader id="Deeds_P" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Seller Rates account :" class="sapUiSmallMarginTop sapUiLargeMarginEnd" required="true"/>
+										<u:FileUploader id="Seller_Rat" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Seller Electricity account :" class="sapUiSmallMarginTop sapUiLargeMarginEnd"/>
+										<u:FileUploader id="Seller_El" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Seller Water Account :" class="sapUiSmallMarginTop sapUiLargeMarginEnd"/>
+										<u:FileUploader id="Seller_Acc" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Power of Attonery :" class="sapUiSmallMarginTop sapUiLargeMarginEnd" required="true"/>
+										<u:FileUploader id="Attonery_P" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Offer to Purchase :" class="sapUiSmallMarginTop sapUiLargeMarginEnd" required="true"/>
+										<u:FileUploader id="offer_P" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Purchaser ID :" class="sapUiSmallMarginTop sapUiLargeMarginEnd" required="true"/>
+										<u:FileUploader id="PurchaserID" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+								</layout:VerticalLayout>
+							</form:SimpleForm>
+						</WizardStep>
+					</Wizard>
+				</content>
+				<footer></footer>
+			</Page>
+			<Page id="wizardReviewPage" showHeader="true" title="Rates Clearance Application">
+				<FlexBox justifyContent="Center" class="sapUiSmallMarginTop">
+					<VBox justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="200px" visible="true" densityAware="false"/>
+					</VBox>
+				</FlexBox>
+				<content>
+					<form:SimpleForm title="1. Application Detail" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Application type"/>
+							<Text id="ProductPriceChosen11" text="Full Title"/>
+							<Label text="Municipality Rates Account number"/>
+							<Text id="DiscountGroupChosen11" text="125586635008"/>
+							<Label text="Water Account number"/>
+							<Text id="FirmTypeChoosen" text="12568596688"/>
+							<Link press="editStepOne" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="2. Property Detail" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Property Type"/>
+							<Text id="ProductNameChosen" text="Rental"/>
+							<Label text="Street NUmber"/>
+							<Text id="ProductWeightChosen" text="1254"/>
+							<Label text="Street Name"/>
+							<Text id="ProductManufacturerChosen" text="Witch-Haizel"/>
+							<Label text="City"/>
+							<Text id="ProductDescriptionChosen" text="Centurion"/>
+							<Link press="editStepTwo" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="3. Seller Detail" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Seller Type"/>
+							<Text text="Ngcebo Zulu "/>
+							<Label text="Telephone"/>
+							<Text id="tel_phone" text="0762536521"/>
+							<Label text="Alternative Contact"/>
+							<Text id="Email_confim" text="0836542159"/>
+							<Label text="Email"/>
+							<Text id="Email_conf" text="zimele@Technologies.com"/>
+							<Link press="editStepThree" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="4. Purchaser Detail" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Purchaser Type"/>
+							<Text id="purchase_typeId" text="Full Type"/>
+							<Label text="Title"/>
+							<Text id="Purchtitle_id" text="Tittle"/>
+							<Label text="First Name"/>
+							<Text id="purchfirst_name" text="Muzi Cossa"/>
+							<Link press="editStepFour" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="5. Supporting Documents" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Property Deeds search"/>
+							<Text id="prop_deedId" text="Property Deeds search (Uploaded)"/>
+							<Label text="Seller Rates account "/>
+							<Text id="sellerrat_Id" text="Seller Rates account (Uploaded) "/>
+							<Label text="Seller Electricity account"/>
+							<Text id="seller_Id" text="Seller Electricity account (Uploaded)"/>
+							<Label text="Seller Water Account"/>
+							<Text id="seller_water_Id" text="Seller Water Account (Uploaded)"/>
+							<Label text="Power of Attonery "/>
+							<Text id="attonery_Id" text="Power of Attonery (Uploaded) "/>
+							<Label text="Offer to Purchase"/>
+							<Text id="offer_Purch_Id" text="Offer to Purchase (Uploaded)"/>
+							<Label text="Purchaser ID"/>
+							<Text id="Purchh_Id" text="Purchaser ID (Uploaded)"/>
+							<Link press="editStepFive" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<Button text="Submit Application" press="handleWizardSubmit" type="Accept" icon="sap-icon://accept"/>
+							<Button text="Cancel Application" press="handleWizardCancel" type="Reject" icon="sap-icon://decline"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</NavContainer>
+</mvc:View>

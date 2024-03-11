@@ -1,0 +1,115 @@
+<mvc:View xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:table="sap.ui.table" xmlns:tool="sap.m.Toolbar" xmlns:f="sap.f" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout"
+	height="100%" controllerName="clearance_portal.controller.Wizard">
+	<NavContainer id="wizardNavContainer">
+		<pages>
+			<Page id="wizardContentPage" showHeader="true" title="Log a Query"
+			 showNavButton="true"
+	            navButtonPress=".onNavButtonback">
+				<FlexBox justifyContent="Center" class="sapUiTinyMargin">
+					<VBox justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="200px" visible="true" densityAware="false"/>
+					</VBox>
+				</FlexBox>
+				<content>
+					<Wizard id="CreateRateClearaneceWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+						complete="wizardCompletedHandler">
+						<WizardStep id="CreateRequestSteps" title="Create Request" validated="true">
+							<form:SimpleForm id="goalsblock" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3"
+								labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2"
+								columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Your Email Address"/>
+								<Input id="Your_Email" value="" required="true" placeholder="Enter Your Email Address"/>
+								<Label text="Cellphone Number"/>
+								<Input id="Cell_phone" value="" required="true" placeholder="Enter Cellphone Number"/>
+								<Label text="Preferred Method of Communication" labelFor="groupB" required="true"/>
+								<RadioButtonGroup id="groupB">
+									<RadioButton text="Email" selected="true"/>
+									<RadioButton text="Cellphone"/>
+								</RadioButtonGroup>
+								<Label text="Query/Service Type" required="true"/>
+								<Select id="Query_Service" selectedKey="">
+									<items>
+										<core:Item text="1st" key="Query_Service"/>
+										<core:Item text="2nd" key="Query_Service"/>
+										<core:Item text="3rd" key="Query_Service"/>
+										<core:Item text="4th" key="Query_Service"/>
+										<core:Item text="5th" key="Query_Service"/>
+									</items>
+								</Select>
+								<Label text="Subject"/>
+								<Input id="Subject_" value="" required="true" placeholder="Enter Subject"/>
+								<Label text="Desciption(details of request)"/>
+								<TextArea value="" rows="8"/>
+								<Label text="Add files(supporting documents)"/>
+								<u:FileUploader id="Add_Files" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+									uploadComplete="handleUploadComplete" width="100%"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="Status_RequestSteps" activate="pricingActivate" complete="pricingComplete" validated="true" title="Status of Request">
+							<form:SimpleForm backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4"
+								labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+								singleContainerFullSize="false">
+								<Label text="Date of Creation" labelFor="Valid_From"/>
+								<DatePicker id="Valid_From" width="100%" valueState="{valueState}" valueStateText="{valueStateText}" placeholder=" Select Date From.."/>
+								<Label text="Valid To" labelFor="Valid_to"/>
+								<DatePicker id="Valid_to" width="100%" valueState="{valueState}" valueStateText="{valueStateText}" placeholder=" Select Date To.."/>
+								<Label text="Reference"/>
+								<Input id="Reference" value="" placeholder=" Enter Reference"/>
+							</form:SimpleForm>
+						</WizardStep>
+					</Wizard>
+				</content>
+			<!--	<footer>
+					<Bar>
+						<contentRight>
+							<Button icon="sap-icon://complete" id="comp_app" text="Submit Application" press="Search" type="Accept"/>
+							<Button icon="sap-icon://cancel" id="cancel_app" text="Cancel/Close Application" press="Search" type="Reject"/>
+						</contentRight>
+					</Bar>
+				</footer>-->
+			</Page>
+			<Page id="wizardReviewPage" showHeader="true" title="Rates Clearance Application">
+				<FlexBox  justifyContent="Center" class="sapUiSmallMarginTop">
+					<VBox  justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="200px" visible="true" densityAware="false"/>
+					</VBox>
+				</FlexBox>
+				<content>
+					<form:SimpleForm title="1. Create Request" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Contact Person"/>
+							<Text text="Administrator Head "/>
+							<Label text="Telephone"/>
+							<Text id="ManufacturingDate" text="07365978426"/>
+							<Label text="Email"/>
+							<Text id="AvailabilityChosen" text="Zimele@Technologies.com"/>
+							<Link press="editStepOne" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="2. Status of Request" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Date of Creation"/>
+							<Text id="ProductPriceChosen" text="23/08/2023"/>
+							<Label text="Valid From"/>
+							<Text id="DiscountGroupChosen" text="23/08/2023"/>
+							<Label text="Valid To"/>
+							<Text id="ProductVATChosen" text="23/08/2023"/>
+							<Link press="editStepTwo" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<Button text="Submit Application"  type="Accept" icon="sap-icon://accept"/>
+							<Button text="Cancel Application"  type="Reject" icon="sap-icon://decline"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</NavContainer>
+</mvc:View>

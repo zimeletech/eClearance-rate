@@ -1,0 +1,444 @@
+<mvc:View xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:table="sap.ui.table" xmlns:tool="sap.m.Toolbar" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout" height="100%"
+	controllerName="clearance_portal.controller.Wizard">
+	<NavContainer id="wizardNavContainer">
+		<pages>
+			<Page id="wizardContentPage" showHeader="true" title="Rates Clearance Application">
+				<FlexBox justifyContent="Center" class="sapUiTinyMargin">
+					<VBox justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="200px" visible="true" densityAware="false"/>
+					</VBox>
+				</FlexBox>
+				<content>
+					<Wizard id="CreateRateClearaneceWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+						complete="wizardCompletedHandler">
+						<WizardStep id="FirmDetailsSteps" title="Firm Details" validated="false" activate="additionalInfoValidation">
+							<form:SimpleForm id="firm_details_id" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+								columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Name of firm" required="true"/>
+								<Input valueStateText="Firm Name must be valid" valueState="{/firmNameState}" id="FirmName" liveChange="additionalInfoValidation"
+									placeholder="Enter Firm Name" type="Text" value="{/firmName}"/>
+								<Label text="Firm type" required="true"/>
+								<Select id="firmType" valueStateText="Firm type must be valid" change="additionalInfoValidation" valueState="{/firmTypeState}"
+									selectedKey="{/firmType}">
+									<items>
+										<core:Item text="--Select Firm type--" key=""/>
+										<core:Item text="Corporation" key="01"/>
+										<core:Item text="Private Company" key="07"/>
+										<core:Item text="CO. LTD" key="08"/>
+										<core:Item text="P.L.C" key="02"/>
+										<core:Item text="P.Lim.by Shares" key="03"/>
+										<core:Item text="P.Lim.by Shares" key="04"/>
+										<core:Item text="P.L.C and Co LP" key="05"/>
+										<core:Item text="Gen.Partnership" key="06"/>
+									</items>
+								</Select>
+								<Label text="Registration number" required="true"/>
+								<Input valueStateText="Registration number must be valid" valueState="{/regNumberState}" id="regNumber"
+									liveChange="additionalInfoValidation" type="Number" placeholder="Enter Registration Number" value="{/regNumber}"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="FirmAddressSteps" validated="false" activate="checkAddressStepValidation" title="Firm Address">
+							<form:SimpleForm id="FirmAddress_Id" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+								columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Street Number" required="true"/>
+								<Input valueStateText="Street number must be valid" valueState="{/streetNumberState}" id="StreetNumber"
+									liveChange="checkAddressStepValidation" placeholder="Enter Street Number" value="{/Street_Number}"/>
+								<Label text="Street Name" required="true"/>
+								<Input valueStateText="Street name must be valid" valueState="{/streetNameState}" id="StreetName" liveChange="checkAddressStepValidation"
+									placeholder="Enter Street Name" value="{/Street_Name}"/>
+								<Label text="Complex Building Name"/>
+								<Input id="Complex_name" value="{/Complex_name}" placeholder="Enter Complexbuilding Floor"/>
+								<Label text="Complexbuilding Floor"/>
+								<Input id="Complex_floor" value="{/Complex_floor}" placeholder="Enter Complexbuilding Floor"/>
+								<Label text="City" required="true"/>
+								<Input valueStateText="City must be valid" valueState="{/cityNameState}" id="City" liveChange="checkAddressStepValidation"
+									placeholder="Enter City" value="{/City}"/>
+								<Label text="District" required="true"/>
+								<Input valueStateText="District must be valid" valueState="{/districtState}" id="City2" liveChange="checkAddressStepValidation"
+									placeholder="Enter District" value="{/City2}"/>
+								<Label text="Province" required="true"/>
+								<Select id="province" selectedKey="{/Province}">
+									<items>
+										<core:Item text="--Select Province--" key=""/>
+										<core:Item text="Eastern Cape" key="EC"/>
+										<core:Item text="Free State" key="FS"/>
+										<core:Item text="Gauteng" key="GP"/>
+										<core:Item text="Limpopo" key="LP"/>
+										<core:Item text="Mpumalanga" key="MP"/>
+										<core:Item text="Northern Cape" key="NC"/>
+										<core:Item text="Northwest" key="NW"/>
+										<core:Item text="Western Cape" key="WC"/>
+										<core:Item text="KwaZulu-Natal" key="ZN"/>
+									</items>
+								</Select>
+								<Label text="Surburb" required="true"/>
+								<Input valueStateText="Surburb must be valid" valueState="{/surburbNameState}" id="Surburb" liveChange="checkAddressStepValidation"
+									placeholder="Enter Surburb" type="Text" value="{/Surburb}"/>
+								<Label text="Postal Code" required="true"/>
+								<Input valueStateText="Postal Code must be valid with 4 digits" valueState="{/postalCodeState}" id="PostalCode"
+									liveChange="checkAddressStepValidation" placeholder="Enter Postal Code" type="Number" value="{/Postal_Code}"/>
+								<Label text="PO BOX"/>
+								<Input id="po_box" value="{/po_box}" placeholder="Enter PO BOX"/>
+								<Label text="Postal Code" required="true"/>
+								<Input valueStateText="Postal code must be valid with 4 digits" valueState="{/postalCodeState2}" id="PostalCode2"
+									liveChange="checkAddressStepValidation" placeholder="Enter Postal Code" type="Number" value="{/Postal_Code2}"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="FirmContactSteps" title=" Firm Contact Details" validated="false" activate="firmContactStepValidation">
+							<form:SimpleForm id="FirmContactId" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+								columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="Cell Number" required="true"/>
+								<Input id="CellNumber" placeholder="Enter Cellphone Number" type="Number" value="{/Tel_phone}"/>
+								<Label text="Telephone"/>
+								<Input id="Tel_phone" valueStateText="Cell Number must have 10 digits" value="{/Tel_phone}" valueState="{/cellnumberState}"
+									placeholder="Enter Telephone No" type="Number" liveChange="firmContactStepValidation"/>
+								<Label text="Email" required="true"/>
+								<Input valueStateText="Email address must be valid" valueState="{/emailAddressState}" id="Email" liveChange="firmContactStepValidation"
+									placeholder="Jonh@gmail.com " type="Email" value="{/email}"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="AddUsersSteps" activate="checkUserStepValidation" complete="pricingComplete" validated="false" title="Add User">
+							<form:SimpleForm id="Administrator" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" title="Administrator:" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+								emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<form:content>
+									<Label text="Title" required="true"/>
+									<Select id="Usertitle" valueStateText="Select valid Title" valueState="{/userTitleState}" selectedKey="{/Usertitle}"
+										change="checkUserStepValidation">
+										<items>
+											<core:Item text="--Select Title--" key=""/>
+											<core:Item text="Ms." key="0001"/>
+											<core:Item text="Mr." key="0002"/>
+											<core:Item text="MISS" key="MISS"/>
+											<core:Item text="PROFESSOR" key="PROF"/>
+										</items>
+									</Select>
+									<Label text="First Name" required="true"/>
+									<Input id="Username" valueStateText="Select valid Title" value="{/Username}" valueState="{/userNameState}" placeholder="Enter First Name"
+										liveChange="checkUserStepValidation"/>
+									<Label text="Last Name" required="true"/>
+									<Input id="Usersurname" valueStateText="Select valid Title" value="{/Usersurname}" valueState="{/userSurnameState}"
+										placeholder="Enter First Name" liveChange="checkUserStepValidation"/>
+									<Label text="Initials"/>
+									<Input id="UserInitial" value="{/UserInitial}" required="true"/>
+									<Label text="Gender" required="true"/>
+									<Select id="Usergender" selectedKey="{/Usergender}">
+										<items>
+											<core:Item text="--Select Gender--" key=""/>
+											<core:Item text="Female" key="1"/>
+											<core:Item text="Male" key="2"/>
+											<core:Item text="Nonbinary" key="3"/>
+											<core:Item text="Not specified" key="9"/>
+										</items>
+									</Select>
+									<Label text="Identification Type" required="true"/>
+									<Select id="UseridType" valueStateText="Select valid ID Type" valueState="{/userIdTypeState}" selectedKey="{/UseridType}"
+										change="checkUserStepValidation">
+										<items>
+											<core:Item text="--Select ID Type--" key=""/>
+											<core:Item text="Identity card" key="FS0001"/>
+											<core:Item text="Passport" key="FS0002"/>
+										</items>
+									</Select>
+									<Label text="Identification Number" required="true"/>
+									<Input id="UseridNumber" valueStateText="ID Number must be valid with 13 digits" value="{/UseridNumber}" valueState="{/useridNumberState}"
+										placeholder="Enter ID Number" liveChange="checkUserStepValidation" type="Number"/>
+									<Label text="Cellphone Number"/>
+									<Input id="Usertelephone" valueStateText="Cell number must be valid with 10 digits" value="{/Usertelephone}"
+										valueState="{/userCellphoneState}" placeholder="Enter Cell Number" type="Number" liveChange="checkUserStepValidation"/>
+									<Label text="Email"/>
+									<Input id="Useremail" valueStateText="Email must be valid e.g someone@gmail.com" value="{/Useremail}" valueState="{/userEmailState}"
+										placeholder="Enter Email" liveChange="checkUserStepValidation"/>
+				
+								</form:content>
+							</form:SimpleForm>
+								<form:SimpleForm id="UserStepId" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3"
+								labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2"
+								columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<Label text="User Name" required="true"/>
+								<Input id="userId" value="{/UserName}" placeholder="Enter UserName" />
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="FundCertificateSteps" activate="checkFundCertificateSteps" complete="pricingComplete" validated="false"
+							title="Fidelity Fund Certificate">
+							<form:SimpleForm backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4"
+								labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+								singleContainerFullSize="false">
+								<Label text="Fidelity Fund Certificate (FFC) Number"/>
+								<Input id="fidelityFundNo" value="{/certNumber}" valueState="{/certNoState}" liveChange="checkFundCertificateSteps"
+								valueStateText="Fidelity Fund Certificate Number must be valid with 10 digits " placeholder="Enter Fidelity Fund Certificate Number"/>
+								<Label text="Name of the Certificate"/>
+								<Input id="fidelityFundName" value="{/certName}" valueState="{/certNameState}" liveChange="checkFundCertificateSteps" 
+								valueStateText="Enter valid Fidelity Fund Certificate Name " placeholder="Enter Name of the Certificate"/>
+								<Label text="Valid From" labelFor="Valid_From"/>
+								<DatePicker id="valid_From" width="100%" value="{/dateFrom}" valueState="{/dateFromState}" change="checkFundCertificateSteps" 
+								valueStateText="Select valid date MM/DD/YYYY" placeholder="Select Date From.."/>
+								<Label text="Valid To" labelFor="Valid_to"/>
+								<DatePicker id="valid_to" width="100%" value="{/dateTo}" valueState="{/dateToState}" change="checkFundCertificateSteps" 
+								valueStateText="Select valid date MM/DD/YYYY" placeholder="Select Date To.."/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="BankAccountDetailsSteps" activate="pricingActivate" complete="pricingComplete" validated="true" title="Bank Account Details">
+							<form:SimpleForm backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4"
+								labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+								singleContainerFullSize="false">
+								<Label text="Bank Account Holder Name"/>
+								<Input id="Bank_Account" value="{/Bank_Account}" placeholder="Enter Bank Account Holder Name"/>
+								<Label text="Bank Name"/>
+								<Select id="Bank_Name" selectedKey="{/Bank_Name}">
+									<items>
+										<core:Item text="--Select Bank--" key="NA"/>
+										<core:Item text="African Bank" key="AfricanBank"/>
+										<core:Item text="ABSA Bank Limited" key="ABSALimited"/>
+										<core:Item text="BidVest Bank" key="BidVestBank"/>
+										<core:Item text="Capitec Bank" key="CapitecBank"/>
+										<core:Item text="Discovry Bank" key="DiscovryBank"/>
+										<core:Item text="First National Bank (FNB)" key="FirstNationalBank"/>
+										<core:Item text="Nedbank Limited" key="NedbankLimited"/>
+										<core:Item text="Standard Bank" key="StandardBank"/>
+										<core:Item text="Tyme Bank" key="TymeBank"/>
+									</items>
+								</Select>
+								<Label text="Account Type"/>
+								<Select id="Account_Type" selectedKey="{/Account_Type}">
+									<items>
+										<core:Item text="--Select Account Type--" key="NA"/>
+										<core:Item text="Savings Account" key="SAV"/>
+										<core:Item text="Investment Account" key="INV"/>
+										<core:Item text="Check Account" key="ChK"/>
+										<core:Item text="Debit Account" key="DEB"/>
+										<core:Item text="Credit Account" key="CRD"/>
+									</items>
+								</Select>
+								<Label text="Account number"/>
+								<Input id="Account_number" value="{/Account_number}" placeholder="Enter Account number"/>
+								<Label text="Branch Name"/>
+								<Input id="Branch_Name" value="{/Branch_Name}" placeholder="Enter Branch Name"/>
+								<Label text="Branch Number"/>
+								<Input id="Branch_Number" value="{/Branch_Number}" placeholder="Enter Branch Number"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="SupportDocumentsSteps" activate="pricingActivate" complete="pricingComplete" validated="true" title="Supporting Documents">
+							<form:SimpleForm backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" title="Upload Supporting Documents:"
+								labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
+								emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<layout:VerticalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Firm Registration Document :" class="sapUiSmallMarginTop sapUiLargeMarginEnd"/>
+										<u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Fidelity Fund Certificate :" class="sapUiSmallMarginTop sapUiLargeMarginEnd"/>
+										<u:FileUploader id="Fidelity_Fund" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Authorizing Official's ID :" class="sapUiSmallMarginTop sapUiLargeMarginEnd"/>
+										<u:FileUploader id="Authorizing__Official" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Authorizing Letter :" class="sapUiSmallMarginTop sapUiLargeMarginEnd"/>
+										<u:FileUploader id="Authorizing_Letter" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Administrator ID :" class="sapUiSmallMarginTop sapUiLargeMarginEnd"/>
+										<u:FileUploader id="Administrator_ID" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+									<layout:HorizontalLayout>
+										<Label text="Bank Confirmation Letter :" class="sapUiSmallMarginTop sapUiLargeMarginEnd"/>
+										<u:FileUploader id="Bank_Letter" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
+											uploadComplete="handleUploadComplete"/>
+										<Button text="Upload File" press="handleUploadPress" class="sapUiTinyMarginBegin"/>
+									</layout:HorizontalLayout>
+								</layout:VerticalLayout>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="Privacy_Policy_Statement" activate="pricingActivate" complete="pricingComplete" validated="true" title="Privacy Statment">
+							<form:SimpleForm>
+								<layout:VerticalLayout>
+									<Title text="Data and Privacy Policy Statment:" titleStyle="H4" width="auto" textAlign="Begin" visible="true"/>
+									<ToolbarSpacer width=""/>
+									<Link href="https://www.zimeletechnologies.com" text="City of Zimeleton Data and Privacy Statement" textAlign="Begin" width="auto"
+										target="_blank" wrapping="false" enabled="true" visible="true" emphasized="true" subtle="false"/>
+									<ToolbarSpacer width=""/>
+									<ToolbarSpacer width=""/>
+									<CheckBox text="I have read and accept the data privacy policy" selected="true" editable="true" enabled="true" visible="true" width="356px"
+										textDirection="Inherit"/>
+									<ToolbarSpacer width=""/>
+									<ToolbarSpacer width=""/>
+									<CheckBox text="I'm not a robot" selected="true" editable="true" enabled="true" visible="true" width="auto" textDirection="Inherit"/>
+								</layout:VerticalLayout>
+							</form:SimpleForm>
+						</WizardStep>
+					</Wizard>
+				</content>
+				<footer></footer>
+			</Page>
+			<Page id="wizardReviewPage" showHeader="true" title="Rates Clearance Application">
+				<FlexBox justifyContent="Center" class="sapUiSmallMarginTop">
+					<VBox justifyContent="Center">
+						<Image src="https://global-uploads.webflow.com/61b99a83c189e1336613aeac/61e1451cef7382045297cd26_original-logo%404x.png" height="80px"
+							width="200px" visible="true" densityAware="false"/>
+					</VBox>
+				</FlexBox>
+				<content>
+					<form:SimpleForm title="1. Firm Details" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Firm Name"/>
+							<Text id="FirmName_Id" text="{/firmName}"/>
+							<Label text="Firm Type"/>
+							<Text id="Type_Id" text="{/firmType}"/>
+							<Label text="Registration Number"/>
+							<Text id="Reg_num_Id" text="{/regNumber}"/>
+							<Link press="editStepOne" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="2. Firm Address" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Street NUmber"/>
+							<Text id="streetNo_Id" text="{/Street_Number}"/>
+							<Label text="Street Name"/>
+							<Text id="streetName_Id" text="{/Street_Name}"/>
+							<Label text="Complex Building Name"/>
+							<Text id="floorName_Id" text="{/Complex_name}"/>
+							<Label text="Complexbuilding Floor"/>
+							<Text id="floorNo_Id" text="{/Complex_floor}"/>
+							<Label text="City"/>
+							<Text id="city_Id" text="{/City}"/>
+							<Label text="District"/>
+							<Text id="district_Id" text="{/City2}"/>
+							<Label text="Provice"/>
+							<Text id="province_Id" text="{/Province}"/>
+							<Label text="Surburb"/>
+							<Text id="surburb_Id" text="{/Surburb}"/>
+							<Label text="Postal Code"/>
+							<Text id="pCode_Id" text="{/Postal_Code}"/>
+							<Label text="PO BOX"/>
+							<Text id="pBox_Id" text="{/po_box}"/>
+							<Label text="Postal Code"/>
+							<Text id="postal_code2" text="{/Postal_Code2}"/>
+							<Link press="editStepTwo" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="3. Firm Contact Details" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Cell Number"/>
+							<Text id="cell_no_Id" text="{/Tel_phone}"/>
+							<Label text="Telephone"/>
+							<Text id="tel_no_Id" text="{/Tel_phone}"/>
+							<Label text="Email Address"/>
+							<Text id="email_add_Id" text="{/email}"/>
+							<Link press="editStepThree" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="4. Add User" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Title"/>
+							<Text id="usertitle_Id" text="{/Usertitle}"/>
+							<Label text="First Name"/>
+							<Text id="userName_Id" text="{/Username}"/>
+							<Label text="Last Name"/>
+							<Text id="userSurname_Id" text="{/Usersurname}"/>
+							<Label text="Initials"/>
+							<Text id="userInitial_Id" text="{/UserInitial}"/>
+							<Label text="Gender"/>
+							<Text id="usergender_Id" text="{/Usergender}"/>
+							<Label text="Identification Type"/>
+							<Text id="userIdtype_Id" text="{/UseridType}"/>
+							<Label text="Identification Number"/>
+							<Text id="userIdno_Id" text="{/UseridNumber}"/>
+							<Label text="Cellphone Number"/>
+							<Text id="usertel_Id" text="{/Usertelephone}"/>
+							<Label text="Email"/>
+							<Text id="useremail_Id" text="{/Useremail}"/>
+							<Label text="House No"/>
+							<Text id="userhouseNo_Id" text="{/UserhouseNo}"/>
+							<Label text="Street"/>
+							<Text id="userstreet_Id" text="{/Userstreet}"/>
+							<Label text="City"/>
+							<Text id="usercity_Id" text="{/Usercity}"/>
+							<Label text="District"/>
+							<Text id="userdistrict_Id" text="{/usercity2}"/>
+							<Label text="Province"/>
+							<Text id="userprovince_Id" text="{/Userprovince}"/>
+							<Label text="Po Box"/>
+							<Text id="userpobox_Id" text="{/UserPoBox}"/>
+							<Label text="Postal Code"/>
+							<Text id="userpostal_Id" text="{/UserpostalCode}"/>
+							<Link press="editStepFour" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="5. Fidelity Fund Certificate" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Fidelity Fund Certificate Number"/>
+							<Text id="ffcn_Id" text="{/certNumber}"/>
+							<Label text="Name of the Certificate"/>
+							<Text id="name_cert_Id" text="{/certName}"/>
+							<Label text="Valid From"/>
+							<Text id="Date_from_Id" text="{/dateFrom}"/>
+							<Label text="Valid To"/>
+							<Text id="Date_to_Id" text="{/dateTo}"/>
+							<Link press="editStepFive" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="6. Bank Account Details" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Bank Account Holder Name"/>
+							<Text id="bank_acc_Id" text="{/Bank_Account}"/>
+							<Label text="Bank Name"/>
+							<Text id="bank_name_Id" text="{/Bank_Name}"/>
+							<Label text="Account Type"/>
+							<Text id="acc_type_Id" text="{/Account_Type}"/>
+							<Label text="Account number"/>
+							<Text id="acc_no_Id" text="{/Account_number}"/>
+							<Label text="Branch Name"/>
+							<Text id="branchName_Id" text="{/Branch_Name}"/>
+							<Label text="Branch Number"/>
+							<Text id="branch_Id" text="{/Branch_Number}"/>
+							<Link press="editStepSix" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm title="7. Supporting Document" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+						<form:content>
+							<Label text="Firm Registration Document"/>
+							<Text id="Firm_reg_Id" text=""/>
+							<Label text="Fidelity Fund Certificate"/>
+							<Text id="Fidelity_Id" text=""/>
+							<Label text="Authorizing Official's ID "/>
+							<Text id="official_ID" text=""/>
+							<Label text="Authorizing Letter "/>
+							<Text id="Auth_letter_Id" text=""/>
+							<Label text="Administrator ID "/>
+							<Text id="Admin2_Id" text=""/>
+							<Label text="Bank Confirmation Letter "/>
+							<Text id="Bank_confirm_Id" text=""/>
+							<Link press="editStepSeven" text="Edit"/>
+						</form:content>
+					</form:SimpleForm>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<Button text="Submit Application" press="handleWizardSubmit" type="Accept" icon="sap-icon://accept"/>
+							<Button text="Cancel Application" press="handleWizardCancel" type="Reject" icon="sap-icon://decline"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</NavContainer>
+</mvc:View>
