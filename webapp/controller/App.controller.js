@@ -4,6 +4,6 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("clearance_portal.controller.App", {
-
+  //init: function(){}
 	});
 });
