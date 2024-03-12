@@ -176,10 +176,10 @@
 								<Input id="fidelityFundName" value="{/certName}" valueState="{/certNameState}" liveChange="checkFundCertificateSteps" 
 								valueStateText="Enter valid Fidelity Fund Certificate Name " placeholder="Enter Name of the Certificate"/>
 								<Label text="Valid From" labelFor="Valid_From"/>
-								<DatePicker id="valid_From" width="100%" value="{/dateFrom}" valueState="{/dateFromState}" change="checkFundCertificateSteps" 
+								<DatePicker id="valid_From" width="100%" value="{/dateFrom}" valueFormat ="yyyy-MM-dd" valueState="{/dateFromState}" change="checkFundCertificateSteps" 
 								valueStateText="Select valid date MM/DD/YYYY" placeholder="Select Date From.."/>
 								<Label text="Valid To" labelFor="Valid_to"/>
-								<DatePicker id="valid_to" width="100%" value="{/dateTo}" valueState="{/dateToState}" change="checkFundCertificateSteps" 
+								<DatePicker id="valid_to" width="100%" value="{/dateTo}" valueFormat ="yyyy-MM-dd" valueState="{/dateToState}" change="checkFundCertificateSteps" 
 								valueStateText="Select valid date MM/DD/YYYY" placeholder="Select Date To.."/>
 							</form:SimpleForm>
 						</WizardStep>

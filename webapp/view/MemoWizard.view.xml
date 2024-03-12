@@ -21,8 +21,10 @@
 								<Select id="Applicationtype" selectedKey="">
 									<items>
 										<core:Item text="Full Title" key="fulltitle"/>
-										<core:Item text="Full Title" key="fulltitle"/>
-										<core:Item text="Full Title" key="fulltitle"/>
+										<core:Item text="Sectional Title " key="fulltitle"/>
+										<core:Item text="Scheme" key="fulltitle"/>
+										<core:Item text="Subdivision" key="fulltitle"/>
+										<core:Item text="Consolidation" key="fulltitle"/>
 									</items>
 								</Select>
 								<Label text="Municipality Rates Account number" required="true"/>
@@ -306,8 +308,8 @@
 				<footer>
 					<Bar>
 						<contentRight>
-							<Button text="Submit Application" press="handleWizardSubmit" type="Accept" icon="sap-icon://accept"/>
-							<Button text="Cancel Application" press="handleWizardCancel" type="Reject" icon="sap-icon://decline"/>
+							<Button text="Submit Application" press="memoSubmit" type="Accept" icon="sap-icon://accept"/>
+							<Button text="Cancel Application" press="memoCancel" type="Reject" icon="sap-icon://decline"/>
 						</contentRight>
 					</Bar>
 				</footer>

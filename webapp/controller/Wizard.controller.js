@@ -72,6 +72,8 @@ sap.ui.define([
 		},
 		submitData: function(oEvent) {
 			var registerModel = this.getView().getModel().getData(); // get all data from the model
+			registerModel.dateFrom = registerModel.dateFrom + "T00:00:00";
+		    registerModel.dateTo = registerModel.dateTo + "T00:00:00";
 			var firmDetails = {}; // Object to store all firm details
 			firmDetails.Title = "0003";
 			firmDetails.LegalEnty = registerModel.firmType;
