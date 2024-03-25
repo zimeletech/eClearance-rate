@@ -20,11 +20,10 @@
 								<Label text="Application type" required="true"/>
 								<Select id="Applicationtype" selectedKey="">
 									<items>
-										<core:Item text="Full Title" key="fulltitle"/>
-										<core:Item text="Sectional Title " key="fulltitle"/>
-										<core:Item text="Scheme" key="fulltitle"/>
-										<core:Item text="Subdivision" key="fulltitle"/>
-										<core:Item text="Consolidation" key="fulltitle"/>
+										<core:Item text="Freehold" key="AE"/>
+										<core:Item text="Sectional Title Scheme " key="FJ"/>
+										<core:Item text="Subdivision" key="KO"/>
+										<core:Item text="Consolidation" key="PT"/>
 									</items>
 								</Select>
 								<Label text="Municipality Rates Account number" required="true"/>
