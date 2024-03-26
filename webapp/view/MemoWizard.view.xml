@@ -18,7 +18,7 @@
 								labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
 								columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
 								<Label text="Application type" required="true"/>
-								<Select id="Applicationtype" selectedKey="{values>/ApplTypeDesc}">
+								<Select id="Applicationtype" selectedKey="{values>/ApplType}">
 									<items>
 										<core:Item text="Freehold" key="AE"/>
 										<core:Item text="Sectional Title Scheme " key="FJ"/>

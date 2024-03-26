@@ -79,7 +79,7 @@ sap.ui.define([
 			var AppDetails = {
 				User1: oModelValues.User1,
 				Partner: oModelValues.Partner,
-				ApplTypeDesc: oModelValues.ApplTypeDesc,
+				ApplType: oModelValues.ApplType,
 				RatesVkont: oModelValues.RatesVkont,
 				WaterElecRatesVkont: oModelValues.WaterElecRatesVkont,
 				WaterVkont: oModelValues.WaterVkont,
