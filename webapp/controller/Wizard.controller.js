@@ -53,18 +53,7 @@ sap.ui.define([
 				dateFromState: "Error",
 				dateToState: "Error",
 				loginusername: ""
-					/*	UserType: "ZRAT", // Set a default value for the dropdown
-						Usertitle: "",
-						Username: "",
-						Usersurname: "",
-						UserInitial: "",
-						Usergender: "",
-						UseridType: "",
-						UseridNumber: "",
-						UsercellNumber: "",
-						Usertelephone: "",
-						Useremail: ""
-				    */
+
 			});
 			this.getView().setModel(this.model);
 			//this.setModel(oGlobalModel, "loginModel");
