@@ -9,71 +9,119 @@ sap.ui.define([
 ], function(Controller, JSONModel, MessageToast, MessageBox, BusyIndicator) {
 	"use strict";
 	var oData;
-	var oGlobalModel;
-	return Controller.extend("clearance_portal.controller.Wizard", {
+	var LoggedUser;
+	return Controller.extend("clearance_portal.controller.MemoWizard", {
 
 		onInit: function() {
 			oData = this.getOwnerComponent().getModel("MyData"); // connect to oData
 			this._wizard = this.byId("CreateRateClearaneceWizard");
 			this._oNavContainer = this.byId("wizardNavContainer");
 			this._oWizardContentPage = this.byId("wizardContentPage");
-			this.firstForm = this.getView().byId("firstForm");
-			this.secondForm = this.getView().byId("secondForm");
-
+			//Get Admin user's details
+			LoggedUser = JSON.parse(localStorage.getItem("userDetails"));
 			// Initialize the model
-			this.model = new JSONModel();
-			this.model.setData({
-				firmNameState: "Error",
-				firmTypeState: "Error",
-				regNumberState: "Error",
-				streetNumberState: "Error",
-				streetNameState: "Error",
-				cityNameState: "Error",
-				districtState: "Error",
-				surburbNameState: "Error",
-				postalCodeState: "Error",
-				postalCodeState2: "Error",
-				emailAddressState: "Error",
-				telephoneState: "Error",
-				cellnumberState: "Error",
-				userTitleState: "Error",
-				userIdTypeState: "Error",
-				userNameState: "Error",
-				userSurnameState: "Error",
-				useridNumberState: "Error",
-				userEmailState: "Error",
-				userhouseNoState: "Error",
-				userpostalCodeState: "Error",
-				userstreetState: "Error",
-				userdistrictState: "Error",
-				usercityState: "Error",
-				userCellphoneState: "Error",
-				certNoState: "Error",
-				certNameState: "Error",
-				dateFromState: "Error",
-				dateToState: "Error",
-				loginusername: ""
-					/*	UserType: "ZRAT", // Set a default value for the dropdown
-						Usertitle: "",
-						Username: "",
-						Usersurname: "",
-						UserInitial: "",
-						Usergender: "",
-						UseridType: "",
-						UseridNumber: "",
-						UsercellNumber: "",
-						Usertelephone: "",
-						Useremail: ""
-				    */
-			});
-			this.getView().setModel(this.model);
+			this.Model = new sap.ui.model.json.JSONModel();
+			this.getView().setModel(this.Model, "values");
 			//this.setModel(oGlobalModel, "loginModel");
 
+		},
+
+		handleCheckBoxSelect: function(oEvent) {
+			var oCheckBox = oEvent.getSource();
+			var oModel = this.getView().getModel("values");
+
+			// Get the ID of the selected CheckBox
+			if (oCheckBox.getId() === "waterElectRateYes") {
+				oModel.setProperty("/WaterElecRatesVkont", "YES");
+				this.getView().byId("waterElectRateNo").setSelected(false);
+			} else {
+				oModel.setProperty("/WaterElecRatesVkont", "NO");
+				this.getView().byId("waterElectRateYes").setSelected(false);
+			}
+
+		},
+		handleCheckBoxBuyer: function(oEvent) {
+			var oCheckBox = oEvent.getSource();
+			var oModel = this.getView().getModel("values");
+
+			// Get the ID of the selected CheckBox
+
+			if (oCheckBox.getId() === "CustomerYes") {
+				oModel.setProperty("/ExistingCust", "YES");
+				this.getView().byId("CustomerNo").setSelected(false);
+			} else {
+				oModel.setProperty("/ExistingCust", "NO");
+				this.getView().byId("CustomerYes").setSelected(false);
+			}
+
+		},
+
+		applicationDetailsSteps: function() {
+
+			var Vkont = this.getView().byId("rateaccNo").getValue();
+			var water = this.getView().byId("wateAccNo").getValue();
+			var elec = this.getView().byId("electrAccNo").getValue();
+			if (Vkont === "" || water === "" || elec === "") {
+				this._wizard.invalidateStep(this.byId("application_detail_id"));
+			} else {
+				this.byId("submitStep1Button").setEnabled(true);
+				this.byId("submitStep1Button").setVisible(true);
+			}
+
+		},
+
+		generateReference: function() {
+			var oModel = this.getView().getModel("values");
+			oModel.setProperty("/Partner", LoggedUser.userBp);
+			oModel.setProperty("/User1", LoggedUser.username);
+			var oModelValues = oModel.getData();
+			var that = this;
+			var AppDetails = {
+				User1: oModelValues.User1,
+				Partner: oModelValues.Partner,
+				ApplTypeDesc: oModelValues.ApplTypeDesc,
+				RatesVkont: oModelValues.RatesVkont,
+				WaterElecRatesVkont: oModelValues.WaterElecRatesVkont,
+				WaterVkont: oModelValues.WaterVkont,
+				ElecVkont: oModelValues.ElecVkont
+			};
+			oData.create('/AppmemoSet', AppDetails, {
+				success: function(oData) {
+					sap.ui.core.BusyIndicator.hide();
+
+					// Entity created/updated successfully
+					MessageBox.show("New Application Reference Successfully Generated", {
+						icon: MessageBox.Icon.SUCCESS,
+						title: "Application Reference",
+						actions: [MessageBox.Action.OK],
+						onClose: function() {
+							oModel.setProperty("/ApplReference", oData.ApplReference);
+							that.byId("ApplicationDetailsSteps").setValidated(true);
+							that.byId("Applicationtype").setEnabled(false);
+							that.byId("electrAccNo").setEnabled(false);                
+							that.byId("wateAccNo").setEnabled(false);
+							that.byId("rateaccNo").setEnabled(false);
+							that.byId("submitStep1Button").setEnabled(false);
+							that.byId("submitStep1Button").setVisible(false);
+						}.bind(this)
+					});
+				},
+				error: function() {
+					// Handle error
+					sap.ui.core.BusyIndicator.hide();
+					// Handle error
+					MessageBox.error("Error Generating Application Reference Number", {
+						title: "Error",
+						actions: [MessageBox.Action.OK]
+					});
+					that.getView().byId("Applicationtype").setEnabled(false);
+				}
+			});
 		},
 		submitData: function(oEvent) {
 			var registerModel = this.getView().getModel().getData(); // get all data from the model
 			registerModel.dateFrom = registerModel.dateFrom + "T00:00:00";
-		    registerModel.dateTo = registerModel.dateTo + "T00:00:00";
+			registerModel.dateTo = registerModel.dateTo + "T00:00:00";
 			var firmDetails = {}; // Object to store all firm details
 			firmDetails.Title = "0003";
 			firmDetails.LegalEnty = registerModel.firmType;
@@ -146,109 +194,7 @@ sap.ui.define([
 				}
 			});
 		},
-		// Function triggered when the "Get OTP" button is clicked
-		onGetOTP: function() {
-			// Hide the first form
-			this.firstForm.setVisible(false);
 
-			// Show the second form
-			this.secondForm.setVisible(true);
-		},
-		// Function triggered when the "Login" button is clicked
-		onLogin: function() {
-			var thats = this;
-			// Get the One-Time Pin entered by the user
-			var enteredOTP = this.getView().byId("otpInput").getValue(); // match the id to the otp input id
-			var sUsername = this.getView().getModel().getProperty("/loginusername"); // change the code to get username input
-			var sPath = "/GenerateOTPSet(Zotp='" + enteredOTP + "',UserUsername='" + sUsername + "')";
-			// Check if the entered OTP is valid (this is a placeholder, you would validate it against the generated OTP)
-			oData.read(sPath, {
-				success: function(oData) {
-					//navigate to the home page
-					//MessageToast.show("Login");
-					//var oRouter = sap.ui.core.UIComponent.getRouterFor(thats);
-					//oRouter.navTo("adminhomeportal"); // Replace "home" with your route or view name
-					thats.onUserRedirect(sUsername);
-
-				},
-				error: function() {
-					MessageToast.show("Your OTP is incorrect or expired");
-				}
-			});
-
-		},
-
-		// Function triggered when the "Cancel" button is clicked
-		onCancel: function() {
-			// Hide the second form
-			this.secondForm.setVisible(false);
-
-			// Show the first form
-			this.firstForm.setVisible(true);
-
-			// Clear the OTP input field
-			this.getView().byId("otpInput").setValue("");
-		},
-
-		//function triggered when the "GET OTP" button is clicked
-		onGenerateOTP: function() {
-			var sUsername = this.getView().getModel().getProperty("/loginusername"); // change the code to get username input
-
-			// Assuming you have an object to send as the payload for creating data
-			var oCreateData = {
-				UserUsername: sUsername
-			};
-			oData.create('/GenerateOTPSet', oCreateData, {
-				success: function(aData, response) {
-					this.onGetOTP();
-				}.bind(this),
-				error: function(error) {
-					MessageToast.show("Sorry, this Username was not found");
-				}
-			});
-		},
-		onUserRedirect: function(Username) {
-			var loggedUser = "/GetUsersSet('" + Username + "')";
-			// Read data from the OData service
-			oData.read(loggedUser, {
-				success: function(oData) {
-					// Set the data to the JSON model
-					var user = oData;
-
-					oGlobalModel = this.getOwnerComponent().getModel("loginModel"); // get global model
-					oGlobalModel.setProperty("/userDetails", {
-						userType: oData.BpType,
-						userTitle: oData.UserTitle,
-						userFirstname: oData.UserNameFirst,
-						username: oData.UserUsername,
-						userLastname: oData.UserNameLast,
-						userIdtype: oData.UserType,
-						userIdnumber: oData.UserIdnumber,
-						userCellnumber: oData.UserTelNumber,
-						userEmail: oData.UserSmtpAddr,
-						userBp : oData.BpPerson,
-						userCompany: oData.BpFirm
-					});
-					oGlobalModel.setProperty("/isLoggedIn", true);
-					this.getOwnerComponent().loggedIn(oGlobalModel);
-					//user = oGlobalModel.getProperty("/userDetails");
-
-					if (user.BpType === "ZADM") {
-						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						oRouter.navTo("adminhomeportal"); // Replace "home" with your route or view name
-					} else {
-						var oRoute = sap.ui.core.UIComponent.getRouterFor(this);
-						oRoute.navTo("homeportal"); // Replace "home" with your route or view name
-					}
-
-				}.bind(this),
-				error: function() {
-					// Handle error
-					sap.m.MessageToast.show("Error fetching Login user");
-				}
-			});
-
-		},
 		onLogoutPress: function() {
 			// Access the Component instance
 			var oComponent = this.getOwnerComponent();
@@ -474,9 +420,8 @@ sap.ui.define([
 			} else {
 				this.model.setProperty("/dateToState", "None");
 			}
-			
-			if (certNumber.length < 10 || certName === "" || dateFrom === "" || dateTo === "") 
-			{
+
+			if (certNumber.length < 10 || certName === "" || dateFrom === "" || dateTo === "") {
 				this._wizard.invalidateStep(this.byId("FundCertificateSteps"));
 			} else {
 				this._wizard.validateStep(this.byId("FundCertificateSteps"));

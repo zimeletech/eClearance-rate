@@ -1,6 +1,6 @@
 <mvc:View xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
 	xmlns:table="sap.ui.table" xmlns:tool="sap.m.Toolbar" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout" height="100%"
-	controllerName="clearance_portal.controller.Wizard">
+	controllerName="clearance_portal.controller.MemoWizard">
 	<NavContainer id="wizardNavContainer">
 		<pages>
 			<Page id="wizardContentPage" showHeader="true" title="Memo/Clearance Certificate Application">
@@ -13,12 +13,12 @@
 				<content>
 					<Wizard id="CreateRateClearaneceWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
 						complete="wizardCompletedHandler">
-						<WizardStep id="ApplicationDetailsSteps" title="Application Detail" validated="true">
+						<WizardStep id="ApplicationDetailsSteps" title="Application Detail" validated="false" activate="applicationDetailsSteps">
 							<form:SimpleForm id="application_detail_id" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
 								labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
 								columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
 								<Label text="Application type" required="true"/>
-								<Select id="Applicationtype" selectedKey="">
+								<Select id="Applicationtype" selectedKey="{values>/ApplTypeDesc}">
 									<items>
 										<core:Item text="Freehold" key="AE"/>
 										<core:Item text="Sectional Title Scheme " key="FJ"/>
@@ -27,16 +27,19 @@
 									</items>
 								</Select>
 								<Label text="Municipality Rates Account number" required="true"/>
-								<Input id="rateaccNo" value="" placeholder=" Enter Municipality Rates Account number"/>
+								<Input id="rateaccNo" value="{values>/RatesVkont}" placeholder=" Enter Municipality Rates Account number"/>
 								<Label text="Water and Electricity are on the same Rate account" required="true"/>
 								<layout:HorizontalLayout >
-									<CheckBox text="Yes" selected="true" editable="true" enabled="true" visible="true"/>
-									<CheckBox text="No" selected="true" editable="true" enabled="true" visible="true"/>
+									<CheckBox id="waterElectRateYes" text="Yes" selected="true" editable="true" enabled="true" visible="true" select=".handleCheckBoxSelect"/>
+									<CheckBox id="waterElectRateNo" text="No" selected="false" editable="true" enabled="true" visible="true" select=".handleCheckBoxSelect"/>
 								</layout:HorizontalLayout>
 								<Label text="Water Account number"/>
-								<Input id="wateAccNo" value="" placeholder="Enter Water Account number"/>
+								<Input id="wateAccNo" value="{values>/WaterVkont}" placeholder="Enter Water Account number" liveChange="applicationDetailsSteps"/>
 								<Label text="Electricity Account number"/>
-								<Input id="electrAccNo" value="" placeholder=" Enter Electricity Account number"/>
+								<Input id="electrAccNo" value="{values>/ElecVkont}" placeholder=" Enter Electricity Account number" liveChange="applicationDetailsSteps"/>
+								<FlexBox justifyContent="Center" alignItems="Center">
+									<Button id="submitStep1Button" text="Submit Step 1" press="generateReference" enabled="false" visible="false"/>
+								</FlexBox>
 							</form:SimpleForm>
 						</WizardStep>
 						<WizardStep id="PropertyDetailsSteps" validated="true" activate="PropertyDetailsSteps" title="Property Detail">
@@ -44,7 +47,7 @@
 								labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
 								columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
 								<Label text="Property Type" required="true"/>
-								<Select id="proper_type" selectedKey="">
+								<Select id="proper_type" selectedKey="{values>/PropertyType}">
 									<items>
 										<core:Item text="Commercial" key="proper_type"/>
 										<core:Item text="Commercial" key="proper_type"/>
@@ -52,19 +55,23 @@
 									</items>
 								</Select>
 								<Label text="ERF"/>
-								<Input id="ERF" value="" required="true" placeholder="Enter ERF"/>
+								<Input id="ERF" value="{values>/Erf}" required="true" placeholder="Enter ERF"/>
 								<Label text="Street Number"/>
-								<Input id="Street_Number" value="" required="true" placeholder="Enter Street Number"/>
+								<Input id="Street_Number" value="{values>/StreetNum}" required="true" placeholder="Enter Street Number"/>
 								<Label text="Street Name" required="true"/>
-								<Input id="Street_Name" value="" placeholder=" Enter Street Name"/>
+								<Input id="Street_Name" value="{values>/StreetName}" placeholder=" Enter Street Name"/>
+								<Label text="Complex Unit" required="true"/>
+								<Input id="Complex_Unit" value="{values>/ComplexUnit}" placeholder=" Enter Street Name"/>
 								<Label text="Complexbuilding Floor"/>
-								<Input id="Complex_floor" value="" placeholder="Enter Complexbuilding Floor"/>
+								<Input id="Complex_floor" value="{values>/ComplexFloor}" placeholder="Enter Complexbuilding Floor"/>
+								<Label text="Complex Name" required="true"/>
+								<Input id="Complex_Name" value="{values>/ComplexName}" placeholder=" Enter Street Name"/>
 								<Label text="City"/>
-								<Input id="City" value="" required="true" placeholder="Enter City"/>
+								<Input id="City" value="{values>/City}" required="true" placeholder="Enter City"/>
 								<Label text="Surburb"/>
-								<Input id="Surburb" value="" required="true" placeholder="Enter Surburb"/>
+								<Input id="Surburb" value="{values>/Suburb}" required="true" placeholder="Enter Surburb"/>
 								<Label text="Postal Code"/>
-								<Input id="Postal_Code" value="" required="true" placeholder="Enter Postal Code"/>
+								<Input id="Postal_Code" value="{values>/PostalCode}" required="true" placeholder="Enter Postal Code"/>
 							</form:SimpleForm>
 						</WizardStep>
 						<WizardStep id="seller_detailsSteps" activate="pricingActivate" complete="pricingComplete" validated="true" title="Seller Detail">
@@ -72,7 +79,7 @@
 								labelSpanL="3" labelSpanM="4" title="Personal Details" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
 								emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
 								<Label text="Seller Type" required="true"/>
-								<Select id="seller_type" selectedKey="">
+								<Select id="seller_type" selectedKey="{values>/SellerType}">
 									<items>
 										<core:Item text="Person" key="seller_type"/>
 										<core:Item text="Person" key="seller_type"/>
@@ -80,7 +87,7 @@
 									</items>
 								</Select>
 								<Label text="Title"/>
-								<Select id="title" selectedKey="{/title}">
+								<Select id="title" selectedKey="{values>/SellerTitle}">
 									<items>
 										<core:Item text="Mr" key="Mr"/>
 										<core:Item text="Miss" key="Miss"/>
@@ -90,28 +97,28 @@
 									</items>
 								</Select>
 								<Label text="First Name"/>
-								<Input value="{/name}" placeholder="Enter First Name"/>
+								<Input value="{values>/SellerFirstname}" placeholder="Enter First Name"/>
 								<Label text="Last Name"/>
-								<Input value="{/surname}" placeholder="Enter Last Name"/>
+								<Input value="{values>/SellerLastname}" placeholder="Enter Last Name"/>
 								<Label text="Identification Type" labelFor="groupB" required="true"/>
 								<RadioButtonGroup id="groupB">
 									<RadioButton text="RSA ID" selected="true"/>
 									<RadioButton text="Passport"/>
 								</RadioButtonGroup>
 								<Label text="Identification Number"/>
-								<Input id="Identification_No" value="" required="true" placeholder="Enter Identification Number"/>
+								<Input id="Identification_No" value="{values>/SellerIdNum}" required="true" placeholder="Enter Identification Number"/>
 							</form:SimpleForm>
 							<form:SimpleForm id="Contact_D" title="Contact Detail" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout"
 								labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
 								emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
 								<Label text="Email"/>
-								<Input id="Email" value="" placeholder="Enter Email"/>
+								<Input id="Email" value="{values>/SellerEmail}" placeholder="Enter Email"/>
 								<Label text="Repeat Email"/>
 								<Input id="Repeat_Email" value="" placeholder="Repeat Email"/>
 								<Label text="Cellphone Number"/>
-								<Input id="Cellphone" value="" placeholder="Enter Cellphone Number"/>
+								<Input id="Cellphone" value="{values>/SellerCellNum}" placeholder="Enter Cellphone Number"/>
 								<Label text="Telephone Number"/>
-								<Input id="Telephone" value="" placeholder="Enter Telephone Number"/>
+								<Input id="Telephone" value="{values>/SellerTelNum}" placeholder="Enter Telephone Number"/>
 								<Label/>
 								<Button text="Add Seller " id="btn_idone" type="Default" press="toIconTabFilter3" iconFirst="true" width="102.18055725097656px"
 									enabled="true" visible="true" iconDensityAware="false"/>
@@ -122,7 +129,7 @@
 								labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
 								singleContainerFullSize="false">
 								<Label text="Buyer Type" required="true"/>
-								<Select id="buyer_type" selectedKey="">
+								<Select id="buyer_type" selectedKey="{values>/BuyerType}">
 									<items>
 										<core:Item text="Person" key="seller_type"/>
 										<core:Item text="Person" key="seller_type"/>
@@ -131,13 +138,13 @@
 								</Select>
 								<Label text="Is an existing City Customer" required="true"/>
 								<layout:HorizontalLayout >
-									<CheckBox text="Yes" selected="true" editable="true" enabled="true" visible="true"/>
-									<CheckBox text="No" selected="true" editable="true" enabled="true" visible="true"/>
+									<CheckBox id="CustomerYes" text="Yes" selected="true" editable="true" enabled="true" visible="true" select=".handleCheckBoxBuyer"/>
+									<CheckBox id="CustomerNo" text="No" selected="false" editable="true" enabled="true" visible="true" select=".handleCheckBoxBuyer"/>
 								</layout:HorizontalLayout>
 								<Label text="Municipality Account Number"/>
-								<Input id="Municipality_" value="" placeholder="Enter Municipality Account Number"/>
+								<Input id="Municipality_" value="{values>/BuyerRatesVkont}" placeholder="Enter Municipality Account Number"/>
 								<Label text="Title"/>
-								<Select id="title_" selectedKey="{/title}">
+								<Select id="title_" selectedKey="{values>/BuyerTitle}">
 									<items>
 										<core:Item text="Mr" key="Mr"/>
 										<core:Item text="Miss" key="Miss"/>
@@ -147,28 +154,28 @@
 									</items>
 								</Select>
 								<Label text="First Name"/>
-								<Input value="{/name}" placeholder="Enter First Name"/>
+								<Input value="{values>/BuyerFirstname}" placeholder="Enter First Name"/>
 								<Label text="Last Name"/>
-								<Input value="{/surname}" placeholder="Enter Last Name"/>
+								<Input value="{values>/BuyerLastname}" placeholder="Enter Last Name"/>
 								<Label text="Identification Type" labelFor="groupB" required="true"/>
 								<RadioButtonGroup id="groupB2">
 									<RadioButton text="RSA ID" selected="true"/>
 									<RadioButton text="Passport"/>
 								</RadioButtonGroup>
 								<Label text="Identification Number"/>
-								<Input id="Identification_No2" value="" required="true" placeholder="Enter Identification Number"/>
+								<Input id="Identification_No2" value="{values>/BuyerIdNum}" required="true" placeholder="Enter Identification Number"/>
 							</form:SimpleForm>
 							<form:SimpleForm id="Contact_No2" title="Contact Detail" backgroundDesign="Transparent" editable="true" layout="ResponsiveGridLayout"
 								labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
 								emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
 								<Label text="Email"/>
-								<Input id="Email_No2" value="" placeholder="Enter Email"/>
+								<Input id="Email_No2" value="{values>/BuyerEmail}" placeholder="Enter Email"/>
 								<Label text="Repeat Email"/>
 								<Input id="Repeat_EmailNo2" value="" placeholder="Repeat Email"/>
 								<Label text="Cellphone Number"/>
-								<Input id="CellphoneN02" value="" placeholder=" Enter Cellphone Number"/>
+								<Input id="CellphoneN02" value="{values>/BuyerCellNum}" placeholder=" Enter Cellphone Number"/>
 								<Label text="Telephone Number"/>
-								<Input id="TelephoneNo2" value="" placeholder="Enter Telephone Number"/>
+								<Input id="TelephoneNo2" value="{values>/BuyerTelNum}" placeholder="Enter Telephone Number"/>
 								<Label text=""/>
 								<Button text="Add Purchaser " type="Default" press="toIconTabFilter3" iconFirst="true" width="200px" enabled="true" visible="true"
 									iconDensityAware="false"/>
@@ -239,48 +246,48 @@
 					<form:SimpleForm title="1. Application Detail" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
 						<form:content>
 							<Label text="Application type"/>
-							<Text id="ProductPriceChosen11" text="Full Title"/>
+							<Text id="appType" text="{values>/ApplTypeDesc}"/>
 							<Label text="Municipality Rates Account number"/>
-							<Text id="DiscountGroupChosen11" text="125586635008"/>
+							<Text id="MuniRate" text="{values>/RatesVkont}"/>
 							<Label text="Water Account number"/>
-							<Text id="FirmTypeChoosen" text="12568596688"/>
+							<Text id="WaterAcc" text="{values>/WaterVkont}"/>
 							<Link press="editStepOne" text="Edit"/>
 						</form:content>
 					</form:SimpleForm>
 					<form:SimpleForm title="2. Property Detail" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
 						<form:content>
 							<Label text="Property Type"/>
-							<Text id="ProductNameChosen" text="Rental"/>
+							<Text text="{values>/PropertyType}"/>
 							<Label text="Street NUmber"/>
-							<Text id="ProductWeightChosen" text="1254"/>
+							<Text text="{values>/StreetNum}"/>
 							<Label text="Street Name"/>
-							<Text id="ProductManufacturerChosen" text="Witch-Haizel"/>
+							<Text text="{values>/StreetName}"/>
 							<Label text="City"/>
-							<Text id="ProductDescriptionChosen" text="Centurion"/>
+							<Text text="{values>/City}"/>
 							<Link press="editStepTwo" text="Edit"/>
 						</form:content>
 					</form:SimpleForm>
 					<form:SimpleForm title="3. Seller Detail" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
 						<form:content>
 							<Label text="Seller Type"/>
-							<Text text="Ngcebo Zulu "/>
+							<Text text="{values>/SellerType}"/>
 							<Label text="Telephone"/>
-							<Text id="tel_phone" text="0762536521"/>
+							<Text text="{values>/SellerTelNum}"/>
 							<Label text="Alternative Contact"/>
-							<Text id="Email_confim" text="0836542159"/>
+							<Text text="{values>/SellerCellNum}"/>
 							<Label text="Email"/>
-							<Text id="Email_conf" text="zimele@Technologies.com"/>
+							<Text text="{values>/SellerEmail}"/>
 							<Link press="editStepThree" text="Edit"/>
 						</form:content>
 					</form:SimpleForm>
 					<form:SimpleForm title="4. Purchaser Detail" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
 						<form:content>
 							<Label text="Purchaser Type"/>
-							<Text id="purchase_typeId" text="Full Type"/>
+							<Text text="{values>/BuyerType}"/>
 							<Label text="Title"/>
-							<Text id="Purchtitle_id" text="Tittle"/>
+							<Text text="{values>/BuyerTitle}"/>
 							<Label text="First Name"/>
-							<Text id="purchfirst_name" text="Muzi Cossa"/>
+							<Text text="{values>/BuyerFirstname}"/>
 							<Link press="editStepFour" text="Edit"/>
 						</form:content>
 					</form:SimpleForm>
@@ -299,7 +306,7 @@
 							<Label text="Offer to Purchase"/>
 							<Text id="offer_Purch_Id" text="Offer to Purchase (Uploaded)"/>
 							<Label text="Purchaser ID"/>
-							<Text id="Purchh_Id" text="Purchaser ID (Uploaded)"/>
+							<Text text="Purchaser ID (Uploaded)"/>
 							<Link press="editStepFive" text="Edit"/>
 						</form:content>
 					</form:SimpleForm>
