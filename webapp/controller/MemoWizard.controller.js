@@ -20,7 +20,13 @@ sap.ui.define([
 			//Get Admin user's details
 			LoggedUser = JSON.parse(localStorage.getItem("userDetails"));
 			// Initialize the model
-			this.Model = new sap.ui.model.json.JSONModel();
+
+			var initialData = {
+				WaterElecRatesVkont: "1",
+				ExistingCust: "1"
+
+			};
+			this.Model = new sap.ui.model.json.JSONModel(initialData);
 			this.getView().setModel(this.Model, "values");
 			//this.setModel(oGlobalModel, "loginModel");
 
@@ -32,10 +38,10 @@ sap.ui.define([
 
 			// Get the ID of the selected CheckBox
 			if (oCheckBox.getId() === "waterElectRateYes") {
-				oModel.setProperty("/WaterElecRatesVkont", "YES");
+				oModel.setProperty("/WaterElecRatesVkont", "1");
 				this.getView().byId("waterElectRateNo").setSelected(false);
 			} else {
-				oModel.setProperty("/WaterElecRatesVkont", "NO");
+				oModel.setProperty("/WaterElecRatesVkont", "0");
 				this.getView().byId("waterElectRateYes").setSelected(false);
 			}
 
@@ -47,10 +53,10 @@ sap.ui.define([
 			// Get the ID of the selected CheckBox
 
 			if (oCheckBox.getId() === "CustomerYes") {
-				oModel.setProperty("/ExistingCust", "YES");
+				oModel.setProperty("/ExistingCust", "1");
 				this.getView().byId("CustomerNo").setSelected(false);
 			} else {
-				oModel.setProperty("/ExistingCust", "NO");
+				oModel.setProperty("/ExistingCust", "0");
 				this.getView().byId("CustomerYes").setSelected(false);
 			}
 
@@ -75,11 +81,12 @@ sap.ui.define([
 			oModel.setProperty("/Partner", LoggedUser.userBp);
 			oModel.setProperty("/User1", LoggedUser.username);
 			var oModelValues = oModel.getData();
+			var appType = this.byId("Applicationtype").getSelectedItem().getKey();
 			var that = this;
 			var AppDetails = {
 				User1: oModelValues.User1,
 				Partner: oModelValues.Partner,
-				ApplType: oModelValues.ApplType,
+				ApplType: appType,
 				RatesVkont: oModelValues.RatesVkont,
 				WaterElecRatesVkont: oModelValues.WaterElecRatesVkont,
 				WaterVkont: oModelValues.WaterVkont,
@@ -95,10 +102,12 @@ sap.ui.define([
 						title: "Application Reference",
 						actions: [MessageBox.Action.OK],
 						onClose: function() {
-							oModel.setProperty("/ApplReference", oData.ApplReference);
+
 							that.byId("ApplicationDetailsSteps").setValidated(true);
 							that.byId("Applicationtype").setEnabled(false);
-							that.byId("electrAccNo").setEnabled(false);                
+							that.byId("waterElectRateNo").setEnabled(false);
+							that.byId("waterElectRateYes").setEnabled(false);
+							that.byId("electrAccNo").setEnabled(false);
 							that.byId("wateAccNo").setEnabled(false);
 							that.byId("rateaccNo").setEnabled(false);
 							that.byId("submitStep1Button").setEnabled(false);
@@ -114,7 +123,7 @@ sap.ui.define([
 						title: "Error",
 						actions: [MessageBox.Action.OK]
 					});
-					that.getView().byId("Applicationtype").setEnabled(false);
+					that.byId("ApplicationDetailsSteps").setValidated(false);
 				}
 			});
 		},
